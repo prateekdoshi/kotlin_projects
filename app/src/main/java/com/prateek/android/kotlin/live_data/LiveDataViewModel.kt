@@ -1,8 +1,8 @@
-package com.prateek.android.kotlin_livedata
+package com.prateek.android.kotlin.live_data
 
 import androidx.lifecycle.*
 
-class MainActivityViewModel : ViewModel() {
+class LiveDataViewModel : ViewModel() {
     val name = MutableLiveData<String>()
     private val transformedMapId = MutableLiveData<Int>()
     private val transformedSwitchMapId = MutableLiveData<Int>()
@@ -32,7 +32,6 @@ class MainActivityViewModel : ViewModel() {
     }
 
     private fun nameAgainstId(id: Int): String {
-        println("viewmodel ${System.currentTimeMillis()}")
         return when (id) {
             1 -> "Prateek"
             2 -> "Shelly"
@@ -41,8 +40,35 @@ class MainActivityViewModel : ViewModel() {
         }
     }
 
+    private fun lastNameAgainstId(id: Int): String {
+        return when (id) {
+            1 -> "Doshi"
+            2 -> "Gandhi"
+            3 -> "Pithwa"
+            else -> "Jain"
+        }
+    }
+
     private fun getNameFromRepository(id: Int): LiveData<String> {
-        return MutableLiveData<String>()
+        val localLiveData = MutableLiveData<String>();
+        localLiveData.value = lastNameAgainstId(id)
+        return localLiveData
+    }
+
+    //observes two live data and their values and provides updated new live data based on that
+    fun fetchCombinedName() {
+        mediatorLiveData.addSource(
+            transformedMapName
+        ) {
+            mediatorLiveData.value =
+                transformedMapName.value + " " + transformedSwitchMapName.value
+        }
+        mediatorLiveData.addSource(
+            transformedSwitchMapName
+        ) {
+            mediatorLiveData.value =
+                transformedMapName.value + " " + transformedSwitchMapName.value
+        }
     }
 
 }
