@@ -1,6 +1,7 @@
 package com.prateek.android.kotlin.live_data
 
 import androidx.lifecycle.*
+import kotlinx.coroutines.delay
 
 class LiveDataViewModel : ViewModel() {
     val name = MutableLiveData<String>()
@@ -12,6 +13,11 @@ class LiveDataViewModel : ViewModel() {
         Transformations.switchMap(
             transformedSwitchMapId
         ) { id -> getNameFromRepository(id) }
+
+    val transformedLiveDataBuilderName: LiveData<String> =
+        Transformations.switchMap(
+            transformedSwitchMapId
+        ) { id -> getLiveDataFromBuilder(id)}
 
     val mediatorLiveData: MediatorLiveData<String> = MediatorLiveData()
 
@@ -68,6 +74,15 @@ class LiveDataViewModel : ViewModel() {
         ) {
             mediatorLiveData.value =
                 transformedMapName.value + " " + transformedSwitchMapName.value
+        }
+
+    }
+    //live data builder
+    private fun getLiveDataFromBuilder(id: Int): LiveData<String> {
+        return liveData {
+            emit(nameAgainstId(id))
+            delay(2000)
+            emitSource(mediatorLiveData)
         }
     }
 
