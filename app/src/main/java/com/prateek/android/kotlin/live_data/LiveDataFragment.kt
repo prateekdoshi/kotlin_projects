@@ -41,5 +41,9 @@ class LiveDataFragment : BaseFragment() {
         mainActivityViewModel.mediatorLiveData.observe(this, Observer { combinedName ->
             tx_combined_name.text = "combinedName $combinedName"
         })
+
+        mainActivityViewModel.transformedLiveDataBuilderName.observe(this, Observer { name ->
+            tx_livedata_builder_name.text = "BuilderName $name"
+        })
     }
 }

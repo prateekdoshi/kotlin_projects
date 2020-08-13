@@ -60,9 +60,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="hello combined name"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tx_livedata_builder_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tx_switchmap_name" />
+
+    <TextView
+        android:id="@+id/tx_livedata_builder_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hello builder name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tx_combined_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
